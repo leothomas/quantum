@@ -17,6 +17,13 @@ import qubit as qubit
 qubitR = qubit.qubit(2.0, 2.0, 0.5)
 qubitL = qubit.qubit(0.5, 1.0, 1.0)
 
+qubitEnt = tensor(qubitR.twolevel(), qubitL.twolevel())
+print qubitR.twolevel()
+print qubitL.twolevel()
+print qubitEnt
+print "ptrace(0): ", qubitEnt.ptrace(0)
+print "ptrace(1): ", qubitEnt.ptrace(1)
+
 # arranging an axis along which to output the time evolution
 t = np.arange(0,10*np.pi,0.01)
 
@@ -36,7 +43,7 @@ fig.savefig('Expectation values', bbox_extra_artists=(legend,), bbox_inches='tig
 fig.subplots_adjust(bottom=0.2)
 frame = legend.get_frame()
 frame.set_facecolor('0.90')
-frame.grid()
+hardcoded.grid()
 # creating curried functions for G(E)[1][1] and G(E)[1][2]
 # up and down are now functions that can be evaluated as: up(E) and down(E)
 # for any E
@@ -50,9 +57,29 @@ down = qubitR.fun_down()
 transUp = fourier.fourier_transform_loop(up, 15, 0.001, t)
 transDown = fourier.fourier_transform_loop(down, 15, 0.001, t)
 
-fig, fourier = plt.subplots()
-fourier.plot(t, np.power(np.abs(transUp),2)/(4*np.pi**2))
-fourier.plot(t, np.power(np.abs(transDown),2)/(4*np.pi**2))
+fig, fourier0 = plt.subplots()
+fourier0.plot(t, np.power(np.abs(transUp),2)/(4*np.pi**2))
+fourier0.plot(t, np.power(np.abs(transDown),2)/(4*np.pi**2))
+fourier0.set_title("-15 to 15, dx = 0.001")
+fourier0.grid()
+"""
+transUp = fourier.fourier_transform_loop(up, 5, 0.001, t)
+transDown = fourier.fourier_transform_loop(down, 5, 0.001, t)
 
-fourier.grid()
+fig, fourier2 = plt.subplots()
+fourier2.plot(t, np.power(np.abs(transUp),2)/(4*np.pi**2))
+fourier2.plot(t, np.power(np.abs(transDown),2)/(4*np.pi**2))
+fourier2.set_title("-5 to 5, dx = 0.001")
+fourier2.grid()
+
+transUp = fourier.fourier_transform_loop(up, 50, 0.01, t)
+transDown = fourier.fourier_transform_loop(down, 50, 0.01, t)
+
+fig, fourier3 = plt.subplots()
+fourier3.plot(t, np.power(np.abs(transUp),2)/(4*np.pi**2))
+fourier3.plot(t, np.power(np.abs(transDown),2)/(4*np.pi**2))
+fourier3.set_title("-50 to 50, dx = 0.01")
+fourier3.grid()
+"""
 plt.show()
+# this took 8 min to run...
