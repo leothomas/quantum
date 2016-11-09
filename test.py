@@ -1,9 +1,8 @@
-#!/usr/bin/env python2
-
-from qutip import *
 import numpy as np
 import scipy as scp
 import matplotlib.pyplot as plt
+from qutip import *
+
 # fourier contains necesary methods for Green's function analysis of 
 # the qubit dynamics
 import fourier as fourier
@@ -14,10 +13,10 @@ import fourier as fourier
 import qubit as qubit
 
 # initializing 2 qubit objects (Eup, Edown, coupling)
-qubitR = qubit.qubit(-2.0, 1.0,  0.75)
-qubitL = qubit.qubit(0.5, -0.1, 0.2)
+qubitR = qubit.qubit(2.0, 1.0,  0.75)
+qubitL = qubit.qubit(1.0, 2.0, 0.2)
 
-qubitEnt = tensor(qubitR.twolevel(), qubitL.twolevel())
+qubitEnt = tensor(qubitL.twolevel(), qubitR.twolevel())
 print qubitR.twolevel()
 print qubitL.twolevel()
 print qubitEnt
@@ -128,22 +127,3 @@ fourier4.grid()
 # this took 8 min to run...
 plt.show()
 
-"""
-E = np.arange(-5, 5, 0.001)
-GE_11 = map(GE11, E)
-GE_12 = map(GE12, E)
-
-
-fig, GE11 = plt.subplots()
-GE11.plot(E, np.real(GE_11))
-GE11.plot(E, np.imag(GE_11))
-GE11.set_title("G(E)_11")
-GE11.grid()
-
-
-fig, GE12 = plt.subplots()
-GE12.plot(E, np.real(GE_12))
-GE12.plot(E, np.imag(GE_12))
-GE12.set_title("G(E)_12")
-GE12.grid()
-"""

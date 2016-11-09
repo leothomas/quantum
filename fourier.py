@@ -1,9 +1,9 @@
 #!/usr/bin/env python2
 
-from qutip import *
 import numpy as np
 import scipy as scp
 import matplotlib.pyplot as plt
+from qutip import *
 
 def inverse_2x2(m):
 	if (m[0][0]*m[1][1] != m[0][1]*m[1][0]):
@@ -16,10 +16,10 @@ def inverse_2x2(m):
 def GE(matrix, E):
 		n = len(matrix)
 		Greens = ( (E-10**(-10)*1j)*qeye(n) - matrix).full()
-		#Greens = (E*qeye(n) - matrix).full()
-		#if np.linalg.cond(Greens) < 1/1000:
-		#		Greens = ( (E-10**(-10)*1j)*qeye(n) - matrix).full()
-		return np.linalg.pinv(Greens)
+		if len(Greens) == 2:
+			return inverse_2x2(Greens)
+		else: 
+			return np.linalg.pinv(Greens)
 
 # iterative implementation of fourrier transform using left hand rectangle
 # rule for integration
