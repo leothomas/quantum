@@ -1,8 +1,5 @@
 Quantum computation research project 
 
-Python Version: 2.7
-Import QuTip > (Numpy, Scipy, matplotLib, cython)
-Imports/dependencies managed by Anaconda
+Python Version: 3.5 (Scipy and Numpy required)
 
-conda create --name quantum python=2 numpy scipy cython matplotLib qutip
-
+This project models the interactions of qubits (quantum bits) entangled in the presence of static disorder. See paper for more information. 
